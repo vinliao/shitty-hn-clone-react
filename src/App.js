@@ -25,21 +25,9 @@ class App extends Component{
     }]
   }
 
-  // changeNameHandler = () => {
-  //   this.setState({
-  //     names: ['asdf', 'doooom'],
-  //   });
-  // }
-
-  // detectInputHandler = (event) => {
-  //   console.log(event);
-  //   this.setState({
-  //     names: [
-  //       'asdf',
-  //       event.target.value,
-  //     ]
-  //   });
-  // }
+  addState = () => {
+    //add the state here, so it can be looped!
+  }
 
   render(){
     return(
