@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/shitty-hn-clone-react/static/css/main.628618b7.chunk.css",
+    "main.js": "/shitty-hn-clone-react/static/js/main.673da502.chunk.js",
+    "main.js.map": "/shitty-hn-clone-react/static/js/main.673da502.chunk.js.map",
+    "runtime~main.js": "/shitty-hn-clone-react/static/js/runtime~main.86a7d0a4.js",
+    "runtime~main.js.map": "/shitty-hn-clone-react/static/js/runtime~main.86a7d0a4.js.map",
+    "static/js/2.496529cf.chunk.js": "/shitty-hn-clone-react/static/js/2.496529cf.chunk.js",
+    "static/js/2.496529cf.chunk.js.map": "/shitty-hn-clone-react/static/js/2.496529cf.chunk.js.map",
+    "index.html": "/shitty-hn-clone-react/index.html",
+    "precache-manifest.be308b2da1c062db6415b9db86c6d0ae.js": "/shitty-hn-clone-react/precache-manifest.be308b2da1c062db6415b9db86c6d0ae.js",
+    "service-worker.js": "/shitty-hn-clone-react/service-worker.js",
+    "static/css/main.628618b7.chunk.css.map": "/shitty-hn-clone-react/static/css/main.628618b7.chunk.css.map"
+  }
+}
