@@ -14,17 +14,17 @@ const postCard = (props) => {
         /> */}
         <CardContent>
           <Typography>
-            <a href={props.article_link}>
+            <a href={props.article_link} target="_blank" rel="noopener noreferrer">
               {props.title}
             </a>
           </Typography>
           <Typography>
             {props.points} points by
-            <a href={props.author_link}>
+            <a href={props.author_link} target="_blank" rel="noopener noreferrer">
               {props.author_name} 
             </a>
             {props.time} hours ago |  
-            <a href={props.hn_link}>
+            <a href={props.hn_link} target="_blank" rel="noopener noreferrer">
               {props.comments} comments
             </a>
           </Typography>

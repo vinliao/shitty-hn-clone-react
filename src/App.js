@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import NavBar from './NavBar'
 import Card from './Post/Card'
+import Footer from './Footer/Footer'
 
 class App extends Component{
   constructor(props){
@@ -10,24 +11,25 @@ class App extends Component{
 
     this.state = {
       posts: [],
-      done_loading: true,
+      post_id_list: [],
+      start_index: 0,
+      end_index: 10,
     }
   }
 
   // you can "create" the list here and then pass it to the state
-  add_post = (post_id) => {
+  add_post = (post_id, post_index) => {
     let URL = 'https://hacker-news.firebaseio.com/v0/item/';
     URL = URL + post_id + '.json';
-    console.log(URL);
 
     axios.get(URL)
       .then(response => {
-        // change the state here, maybe
-        console.log(response);
-        
-        // change the state here
+        // if the get request returns a json, then
+        // add the data to the state
         const posts = [...this.state.posts]
-        posts.push({
+
+        // add items to the state based on the index
+        posts.splice(post_index, 0, {
           post_id: response.data.id,
           title: response.data.title,
           article_link: response.data.url,
@@ -46,19 +48,32 @@ class App extends Component{
     // send the get request here
     axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(response => {
+        let post_id_list = [...this.state.post_id_list];
+        post_id_list = response.data;
+        this.setState({post_id_list: post_id_list});
+        
         // if the get request gets back, execute this
-
-        // loop add post here
-        // TODO: add index so it's orderly
-        for(let i=0; i<10; i++){
-          this.add_post(response.data[i]);
+        for(let i=this.state.start_index; i<this.state.end_index; i++){
+          this.add_post(this.state.post_id_list[i], i);
         }
       });
-    // this.add_post();
+  }
+
+  add_index = () => {
+    // this doesn't change the ui because I didn't change the
+    // state of the post
+    const state = {...this.state};
+    state.start_index += 10;
+    state.end_index += 10;
+
+    for(let i=state.start_index; i<state.end_index; i++){
+      this.add_post(this.state.post_id_list[i], i);
+    }
+
+    this.setState(state)
   }
 
   render(){
-
     // dynamically load the post state
     let card_list = null;
 
@@ -89,6 +104,7 @@ class App extends Component{
       <div className="App">
         <NavBar />
         {card_list}
+        <Footer click_next={this.add_index}/>
       </div>
     )
   }
