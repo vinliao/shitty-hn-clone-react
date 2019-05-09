@@ -29,16 +29,23 @@ class App extends Component{
         const posts = [...this.state.posts]
 
         // add items to the state based on the index
+        let main_link = null;
+        if(response.data.url){
+          main_link = response.data.url;
+        }else{
+          main_link = 'https://news.ycombinator.com/item?id=' + response.data.id;
+        }
         posts.splice(post_index, 0, {
           post_id: response.data.id,
           title: response.data.title,
-          article_link: response.data.url,
+          article_link: main_link,
           hn_link: 'https://news.ycombinator.com/item?id=' + response.data.id,
           author_name: response.data.by,
           author_link: 'https://news.ycombinator.com/user?id=' + response.data.by,
           points: response.data.score,
           comments: response.data.descendants,
         });
+
         this.setState({posts: posts});
       })
   }
