@@ -15,20 +15,18 @@ const postCard = (props) => {
         <CardContent>
           <Typography>
             <a href={props.article_link}>
-              <p>{props.title}</p>
+              {props.title}
             </a>
           </Typography>
           <Typography>
-            <p>
-              {props.points} points by
-              <a href={props.author_link}>
-                {props.author_name} 
-              </a>
-              {props.time} hours ago |  
-              <a href={props.hn_link}>
-                {props.comments} comments
-              </a>
-            </p>
+            {props.points} points by
+            <a href={props.author_link}>
+              {props.author_name} 
+            </a>
+            {props.time} hours ago |  
+            <a href={props.hn_link}>
+              {props.comments} comments
+            </a>
           </Typography>
         </CardContent>
       </Card>
