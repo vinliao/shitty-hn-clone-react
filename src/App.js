@@ -1,44 +1,70 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 import NavBar from './NavBar'
 import Card from './Post/Card'
 
 class App extends Component{
+  constructor(props){
+    super(props);
+
+    this.state = {
+      posts: [],
+      done_loading: true,
+    }
+  }
 
   // you can "create" the list here and then pass it to the state
+  add_post = (post_id) => {
+    let URL = 'https://hacker-news.firebaseio.com/v0/item/';
+    URL = URL + post_id + '.json';
+    console.log(URL);
 
-  state = {
-    // this can be looped!
-    post: [{
-      post_id: 19854381,
-      title: 'Google Is Turning Off the Works-with-Nest API',
-      article_link: 'https://nest.com/whats-happening/',
-      hn_link: 'https://news.ycombinator.com/item?id=19854381',
-      author_name: 'cek',
-      author_link: 'https://news.ycombinator.com/user?id=cek',
-      points: 357,
-      comments: 232,
-    }, {
-      post_id: 19852105,
-      title: 'Css-only-chat: A truly monstrous async web chat using no JS on the front end',
-      article_link: 'https://github.com/kkuchta/css-only-chat',
-      hn_link: 'https://news.ycombinator.com/item?id=19852105',
-      author_name: 'bennylope',
-      author_link: 'https://news.ycombinator.com/user?id=bennylope',
-      points: 626,
-      comments: 106,
-    }],
-    done_loading: true,
+    axios.get(URL)
+      .then(response => {
+        // change the state here, maybe
+        console.log(response);
+        
+        // change the state here
+        const posts = [...this.state.posts]
+        posts.push({
+          post_id: response.data.id,
+          title: response.data.title,
+          article_link: response.data.url,
+          hn_link: 'https://news.ycombinator.com/item?id=' + response.data.id,
+          author_name: response.data.by,
+          author_link: 'https://news.ycombinator.com/user?id=' + response.data.by,
+          points: response.data.score,
+          comments: response.data.descendants,
+        });
+        this.setState({posts: posts});
+      })
+  }
+
+  // call the function add_post when the page loads
+  componentDidMount = () => {
+    // send the get request here
+    axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
+      .then(response => {
+        // if the get request gets back, execute this
+
+        // loop add post here
+        // TODO: add index so it's orderly
+        for(let i=0; i<10; i++){
+          this.add_post(response.data[i]);
+        }
+      });
+    // this.add_post();
   }
 
   render(){
 
+    // dynamically load the post state
     let card_list = null;
 
-    // dynamically load the post state
     card_list = (
       <div>
-        {this.state.post.map(one_post => {
+        {this.state.posts.map(one_post => {
         // what you wanna do with each post
         return <Card title={one_post.title}
           article_link={one_post.article_link} 
