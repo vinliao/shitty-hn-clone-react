@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/shitty-hn-clone-react/static/css/main.bc1bf199.chunk.css",
-    "main.js": "/shitty-hn-clone-react/static/js/main.50a86eb6.chunk.js",
-    "main.js.map": "/shitty-hn-clone-react/static/js/main.50a86eb6.chunk.js.map",
+    "main.css": "/shitty-hn-clone-react/static/css/main.12d14a39.chunk.css",
+    "main.js": "/shitty-hn-clone-react/static/js/main.b8a63db8.chunk.js",
+    "main.js.map": "/shitty-hn-clone-react/static/js/main.b8a63db8.chunk.js.map",
     "runtime~main.js": "/shitty-hn-clone-react/static/js/runtime~main.86a7d0a4.js",
     "runtime~main.js.map": "/shitty-hn-clone-react/static/js/runtime~main.86a7d0a4.js.map",
-    "static/js/2.4f69775b.chunk.js": "/shitty-hn-clone-react/static/js/2.4f69775b.chunk.js",
-    "static/js/2.4f69775b.chunk.js.map": "/shitty-hn-clone-react/static/js/2.4f69775b.chunk.js.map",
+    "static/js/2.71be489f.chunk.js": "/shitty-hn-clone-react/static/js/2.71be489f.chunk.js",
+    "static/js/2.71be489f.chunk.js.map": "/shitty-hn-clone-react/static/js/2.71be489f.chunk.js.map",
     "index.html": "/shitty-hn-clone-react/index.html",
-    "precache-manifest.b711325ca8c5d125913a7b910d6e0e13.js": "/shitty-hn-clone-react/precache-manifest.b711325ca8c5d125913a7b910d6e0e13.js",
+    "precache-manifest.d2021a0e14a9542189f1556b164f6aec.js": "/shitty-hn-clone-react/precache-manifest.d2021a0e14a9542189f1556b164f6aec.js",
     "service-worker.js": "/shitty-hn-clone-react/service-worker.js",
-    "static/css/main.bc1bf199.chunk.css.map": "/shitty-hn-clone-react/static/css/main.bc1bf199.chunk.css.map"
+    "static/css/main.12d14a39.chunk.css.map": "/shitty-hn-clone-react/static/css/main.12d14a39.chunk.css.map"
   }
 }
