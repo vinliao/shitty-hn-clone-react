@@ -27,7 +27,7 @@ const navbar = (props) => {
         <Button
           onClick={props.click_next}
           variant='contained'
-          color='default'>Load Prev</Button>
+          color='default'>Load Next</Button>
       </div>
     </div>
   )
