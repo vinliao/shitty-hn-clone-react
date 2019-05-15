@@ -1,0 +1,19 @@
+pseudocode for dfs algorithm for the comments page
+
+add_to_state(comments, id){
+    comment = axios.get(id)
+    
+    /* if(comment[visited]){
+        return
+    }
+    
+    comment[visited] = true */
+    
+    comments.push(comment) # or use splice
+
+    if(comment.kids){
+        comment.kids.pop()
+        add_to_state(comment.kids[0])
+    }
+}
+

@@ -17,6 +17,8 @@ class CommentContainer extends Component{
 
   //add depth parameter
   get_comments = (visited_id, comment_object, id, descendants) => {
+    // comment.length repeats itself, maybe you should splice by using index
+
     let url = null;
 
     if(visited_id.includes(id)){
@@ -45,18 +47,44 @@ class CommentContainer extends Component{
         }
         // or maybe, set the depth value here
       })
+
+    // return comment_object
+    // console.log(comment_object);
+
+    // this shit seems to return when everytime the function is called
+    // how do I return when all the comments are already called?
+    // if(comment_object.length === descendants)
     
-    if(comment_object.length >= descendants && descendants !== 0){
-      console.log('Setting state with array:');
-      // console.log(comment_object.length);
-      // return comment_object
-      console.log(comment_object)
-      this.setState({comments: comment_object})
-    }
+    // only half of all comment is probably enough for now
+    
+    console.log(comment_object.length);
+    return comment_object
+    // if((comment_object.length/2) >= descendants && descendants !== 0){
+    //   // console.log(descendants);
+    //   // return comment_object;
+    //   this.setState({comments: comment_object})
+    // }
+
+    // if(this.state.descendants){
+    //   // return comment_object;
+    //   console.log(this.state.descendants);
+    //   console.log('heeyyy')
+    //   this.setState({comments: comment_object})
+    // }
   }
 
   componentDidMount = () => {
+    // const URL = 'https://hacker-news.firebaseio.com/v0/item/' + post_id + '.json';
+
+    console.log('dic')
     const post_id = this.props.match.params.id;
+
+    // let comments = null;
+    // comments = this.get_comments([], [], post_id, 0);
+    // //oh okay, the comments aren't set properly, fix this shit
+    // // comments[0] returned undefined, which is fucking stupid
+    // this.setState({comments: comments});
+
     this.get_comments([], [], post_id, 0);
   }
 
@@ -64,7 +92,12 @@ class CommentContainer extends Component{
     // dynamically load the post state
     let card_list = null;
 
-    if(this.state.comments){
+    // console.log(this.state.comments.length)
+    // the comment state always seems to be empty, this is fucking stupid
+    // console.log(this.state);
+    // console.log(this.state.comments.length);
+
+    if(this.state.comments.length > 0 && this.state.comments){
       console.log('hey')
       card_list = (
         <div>

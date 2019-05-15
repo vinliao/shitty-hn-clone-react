@@ -2,7 +2,8 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import './Card.css';
+import './PostCard.css';
+import { Link } from 'react-router-dom';
 
 const postCard = (props) => {
   return(
@@ -24,9 +25,12 @@ const postCard = (props) => {
               {props.author_name} 
             </a>
             {props.time} hours ago |  
-            <a href={props.hn_link} target="_blank" rel="noopener noreferrer">
+            {/* <a href={props.hn_link} target="_blank" rel="noopener noreferrer">
               {props.comments} comments
-            </a>
+            </a> */}
+            <Link to={'/' + props.id}>
+              {props.comments} comments
+            </Link>
           </Typography>
         </CardContent>
       </Card>
