@@ -7,8 +7,8 @@ import axios from 'axios';
 
 class MainContainer extends Component{
   state = {
-    posts: [],
-    all_post_id: [],
+    posts: null,
+    all_post_id: null,
     start_index: 0,
     end_index: 10,
   }
@@ -52,13 +52,14 @@ class MainContainer extends Component{
 
   // call the function add_post when the page loads
   componentDidMount = () => {
-    // send the get request here
+    // the container keeps on loading the new post each time I go back from comments
+    // this is unecessary, maybe redux can fix this
+    // but man, that's a project for another day
 
-    // TODO: fix this shit. This container gets loaded everytime it's mounted
-    // it's inefficient because everytime ppl hit back, it gets to the api again
     axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(response => {
-        let all_post_id = [...this.state.all_post_id];
+        // let all_post_id = [...this.state.all_post_id];
+        let all_post_id = []
         all_post_id = response.data;
         this.setState({all_post_id: all_post_id});
         
@@ -94,8 +95,8 @@ class MainContainer extends Component{
     // dynamically load the post state
     let card_list = null;
 
-    // if 
-    if(this.state.posts.length === this.state.end_index-this.state.start_index){
+    if(this.state.posts){
+    // if(this.state.posts.length === this.state.end_index-this.state.start_index){
       card_list = (
         <div>
           {this.state.posts.map(one_post => {

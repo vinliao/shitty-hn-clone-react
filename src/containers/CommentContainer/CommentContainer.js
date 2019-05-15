@@ -7,6 +7,7 @@ import axios from 'axios';
 class CommentContainer extends Component{
   state = {
     comments: null,
+    one: null,
   }
 
   get_url = (id) => {
@@ -16,7 +17,7 @@ class CommentContainer extends Component{
   }
 
   //add depth parameter
-  get_comments = (visited_id, comment_object, id, descendants) => {
+  get_comments = (visited_id, comment_object, id, descendants, idx) => {
     let url = null;
 
     if(visited_id.includes(id)){
@@ -29,35 +30,40 @@ class CommentContainer extends Component{
     axios.get(url)
       .then(response => {
 
-        // how do i make this orderly?
         response.data['author_link'] = ''
         if(response.data.descendants){
           descendants = response.data.descendants;
+
+          // set comment object to an array of n items
+          // n is descendant
+          // this is so the splice works
+          comment_object = new Array(descendants);
         }
 
-        comment_object.splice(comment_object.length, 0, response.data);
+        //use index to splice properly
+        // comment_object.splice(comment_object.length, 0, response.data);
+        comment_object[idx] = response.data
 
+        // set the value of depth somewhere around here
         if(response.data.kids){
           for(let i=0; i<response.data.kids.length; i++){
-            // set the depth value here
-            this.get_comments(visited_id, comment_object, response.data.kids[i], descendants);
+            idx++;
+            this.get_comments(visited_id, comment_object, response.data.kids[i], descendants, idx);
           }
         }
-        // or maybe, set the depth value here
+
+        if(descendants !== 0){
+          // console.log(comment_object);
+          // TODO: sometimes the comment object isn't fully there yet and it's done
+          // creating the state n stuff
+          this.setState({comments: comment_object});
+        }
       })
-    
-    if(comment_object.length >= descendants && descendants !== 0){
-      console.log('Setting state with array:');
-      // console.log(comment_object.length);
-      // return comment_object
-      console.log(comment_object)
-      this.setState({comments: comment_object})
-    }
   }
 
   componentDidMount = () => {
     const post_id = this.props.match.params.id;
-    this.get_comments([], [], post_id, 0);
+    this.get_comments([], [], post_id, 0, 0);
   }
 
   render(){
@@ -65,7 +71,8 @@ class CommentContainer extends Component{
     let card_list = null;
 
     if(this.state.comments){
-      console.log('hey')
+      console.log(this.state);
+      // console.log(this.state.comments);
       card_list = (
         <div>
           {this.state.comments.map(one_comment => {
