@@ -17,9 +17,12 @@ class CommentContainer extends Component{
   }
 
   //add depth parameter
-  get_comments = (visited_id, comment_object, id, descendants, idx) => {
+  set_comments = (id, comment_object=null, visited_id=[], descendants=0, idx=0) => {
     let url = null;
 
+    // urgent: I am not handling if kids === []
+
+    // console.log(typeof visited_id)
     if(visited_id.includes(id)){
       return;
     }
@@ -30,7 +33,7 @@ class CommentContainer extends Component{
     axios.get(url)
       .then(response => {
 
-        response.data['author_link'] = ''
+        // response.data['author_link'] = ''
         if(response.data.descendants){
           descendants = response.data.descendants;
 
@@ -40,17 +43,28 @@ class CommentContainer extends Component{
           comment_object = new Array(descendants);
         }
 
+        // console.log(response.data.id)
         //use index to splice properly
         // comment_object.splice(comment_object.length, 0, response.data);
-        comment_object[idx] = response.data
+
+        // here's the thing, the comment_object data has to be present in the first place before
+        // you can put shit inside
+        comment_object[idx] = response.data;
+        console.log(comment_object)
+        // console.log(idx + ' ' + response.data.by)
+        // console.log(comment_object);
 
         // set the value of depth somewhere around here
         if(response.data.kids){
           for(let i=0; i<response.data.kids.length; i++){
             idx++;
-            this.get_comments(visited_id, comment_object, response.data.kids[i], descendants, idx);
+            // this.set_comments(visited_id, comment_object, response.data.kids[i], descendants, idx);
+            this.set_comments(response.data.kids[0], comment_object, visited_id, descendants, idx)
           }
         }
+        // else{
+        //   return comment_object;
+        // }
 
         if(descendants !== 0){
           // console.log(comment_object);
@@ -63,7 +77,7 @@ class CommentContainer extends Component{
 
   componentDidMount = () => {
     const post_id = this.props.match.params.id;
-    this.get_comments([], [], post_id, 0, 0);
+    this.set_comments(post_id);
   }
 
   render(){
@@ -71,7 +85,7 @@ class CommentContainer extends Component{
     let card_list = null;
 
     if(this.state.comments){
-      console.log(this.state);
+      // console.log(this.state);
       // console.log(this.state.comments);
       card_list = (
         <div>
