@@ -109,7 +109,6 @@ class CommentContainer extends Component{
         // if it has replies
         else{
           for(let i=0; i<kids.length; i++){
-            console.log('current ' + response.data.by + ' ' + i)
             if(!visited_id.includes(kids[i])){
               return this.set_comments(kids[i], comment_object, visited_id, index);
             }
