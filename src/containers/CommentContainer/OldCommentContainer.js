@@ -10,7 +10,7 @@ class CommentContainer extends Component{
   }
 
   get_url = (id) => {
-    let url = 'https://hacker-news.firebaseio.com/v0/item/';
+    let url = 'https://api.hnpwa.com/v0/item/';
     url += id + '.json';
     return url;
   }
@@ -74,7 +74,7 @@ class CommentContainer extends Component{
   }
 
   componentDidMount = () => {
-    // const URL = 'https://hacker-news.firebaseio.com/v0/item/' + post_id + '.json';
+    // const URL = 'https://api.hnpwa.com/v0/item/' + post_id + '.json';
 
     console.log('dic')
     const post_id = this.props.match.params.id;
