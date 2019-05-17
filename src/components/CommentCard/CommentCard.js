@@ -5,16 +5,12 @@ import CardContent from '@material-ui/core/CardContent'
 import './CommentCard.css';
 
 const CommentCard = (props) => {
-  // in the comment, put author, x hours ago, and the comment itself
   return(
-    <div className='Card'>
+    <div className='card' style={{marginLeft: props.depth * 10 + 'px'}}>
       <Card>
         <CardContent>
           <Typography>
-            <a href={props.author_link} target="_blank" rel="noopener noreferrer">
-              {props.author_name} 
-            </a>
-            {props.time} hours ago |  
+            {props.author_name} {props.time}
           </Typography>
           <Typography>
             {/* put the comment here */}

@@ -1,8 +1,12 @@
-.Card {
-    width: 50%;
-    margin: 16px auto;
+.card {
+    /* overflow: auto; */
+    /* max-width: 100vw; */
+    /* position: static; */
+    /* width: 100%; */
+    /* margin: 16px auto; */
     /* border: 1px solid #eee; */
     /* box-shadow: 0 2px 3px #ccc; */
-    padding: 10px;
-    text-align: center;
+    /* padding: 10px; */
+    text-align: left;
+    padding: 0 250px 0 250px
 }

@@ -24,7 +24,6 @@ class CommentContainer extends Component{
 
     // base case
     if(comment_graph.length === descendants){
-      console.log('Recursive done!')
       this.setState({comments: comment_graph})
     }
 
@@ -32,8 +31,15 @@ class CommentContainer extends Component{
       let curr_comment = comment_array[i];
       if(!curr_comment.visited){
         curr_comment.visited = true;
-        comment_graph.push(curr_comment);
 
+        // decode the text into readable string
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(
+            '<!doctype html><body>' + curr_comment.content,
+            'text/html');
+        curr_comment.content = dom.body.textContent;
+
+        comment_graph.push(curr_comment);
         this.set_comments(curr_comment.comments, descendants, comment_graph);
       }
     }
@@ -44,8 +50,7 @@ class CommentContainer extends Component{
     const post_url = this.get_url(post_id);
     axios.get(post_url)
       .then(response => {
-        
-        console.log(response.data);
+        // set state of the post, take data from response.data
         this.set_comments(response.data.comments, response.data.comments_count);
       })
   }
@@ -54,32 +59,18 @@ class CommentContainer extends Component{
     // dynamically load the post state
     let card_list = null;
 
-    // if(this.state.comments){
-    //   card_list = (
-    //     <div>
-    //       {Object.keys(this.state.comments.map(one_comment => {
-    //       return <CommentCard author_name={one_comment.by} 
-    //         author_link={one_comment.author_link}
-    //         text={one_comment.text}
-    //         key={one_comment.id} 
-    //         time={one_comment.time} />
-    //       }))}
-    //     </div>
-    //   )
-    // }
-
-    // TODO use map instead
     if(this.state.comments){
       console.log(this.state);
       card_list = (
         <div>
           {/* how the fuck do I loop through the objcet here? */}
-          {Object.keys(this.state.comments).map(one_comment => {
-            return <CommentCard author_name={one_comment.by} 
-              author_link={one_comment.author_link}
-              text={one_comment.text}
+          {this.state.comments.map(one_comment => {
+            return <CommentCard author_name={one_comment.user} 
+              // author_link={one_comment.author_link}
+              text={one_comment.content}
               key={one_comment.id} 
-              time={one_comment.time} />
+              time={one_comment.time_ago}
+              depth={one_comment.level} />
           })}
         </div>
       )
